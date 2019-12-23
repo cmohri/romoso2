@@ -1,0 +1,146 @@
+RoMoSo
+Rohan Ahammed
+Clara Mohri
+Soojin Choi
+pd 08
+---------------------
+Transit Reccomendations
+
+
+
+
+/////////// Zone of Reflection \\\\\\\\\\\
+------------------------------------------
+OBSTACLES OVERCOME
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+One of the obstacles we faced was to figure out how to incorporate all of the stations in the NYCT system in objects without doing it ourselves. We decided to look for a csv file with stations and after days of looking, we found one! The next obstacle we faced is how to process the csv file into Java code without a huge hassle because the main part of our project was not going to be about processing csv files. We decided to use a Python script to write a Java file with the instantiation of all of the Java objects because file writing is significantly less complicated and easier in Python and we wanted to focus on the core of our project: the algorithm. Another major obstacle we had was figuring out how to make sure the algorithm did not take a very long time if presented with a lot of transfers at a station, which was very hard and it took us back to the drawing board. We ended up with a better, more succint algorithm that was more reliable. This took a very long time, and only on the last day and a half before the project was due did we finally start considering other options to solving our problem of seemingly infinite running time.
+
+UNRESOLVED ISSUES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sometimes the algorithm tells the user to make transfers that make no sense in real life but make sense to the algorithm. It is much preferable to stay on the same line rather than transfer but the algorithm doesn't consider that so even if the departing and destination stations are on the same line, the algorithm will stay to transfer to a different train in the same groups of lines (aka transfer to the 3 from the 2). 
+COOL STUFF LEARNED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We learned a cool new algorithm called Djikstra's Algorithm, which was useful in finally solving our problem of such long running time. We learned about the limitations of the Java provided LinkedList available to us via import and why it might be more beneficial to define your own Node class and link them yourself, rather than doing a LinkedList. We also ended up learning about how csv files can be used to create Java objects. 
+
+MID-DEVELOPMENT DESIGN CHANGES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Some of the mid-development design changes we made regard the structure of the SubwayLines. Initially, we thought we could encapsulate an instance of the Java provided LinkedList class in SubwayLine, with the Stations being our nodes. We soon realized that certain methods we were used to because of our own implementation of LinkedList, like getNext() and getPrev(), were not provided in LinkedList (getNext() could have done through iterator but not getPrev). We also changed how we were going to have stations be searched through in a SubwayLine. At first, we thought we were going to check if two strings are equal to each other, but we realized that is annoying to code out and check for, so we resorted to station Ids that already existed on the csv file. Checking for the equality of two ints is a lot easier, and finding a station based off an int is easier than checking for the equality of two strings and finding a station based off of a string.
+We originally intended to use a sort of depth-first search to find the subway station that was the destination. This, however, was not working, because of such ineffient running time. Instead, we ended up using Dijkstra's algorithm to solve the problem. This made it such that we implemented a min-heap, and a heapify algorithm. We still kept the SubwayLines(Linked Lists) in which the Stations were contained, although arguably these could be eliminated from the start. We started off wanting to use depth-first search with backtracking, but we realized that the NYC transit system was too large to be able to do a recursive algorithm that works quickly.
+
+LESSONS LEARNED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Something we've learned that is that just because Java or another language provides a default class of something like a data structure does not mean you should use it. Implementing your own version of a data structure allows you to use it in a more versatile way and fit your own needs as a data structure. If you need something extra you want to add to your data structure to make something like your algorithm run smoother, you can do that with little hassle if you started off with your own implementation. We've also learned that its better to use integers for your interface instead of strings. Not only are integers easier to check for equality, it provides less room for error from the user. If the user were to enter Strings, the chance that they actually type it exactly like it appears in the actual code is low.
+Another lesson that we've learned is that sometimes you have to be open to making smarter decisions in order to have the core functionality in tact. If we had proceeded with the depth-first search algorithm, then there would have been times at which the user never would have received a suggested path. We came to the conclusion that depth-first search was not something that could be used, and especially on such an expansive dataset. Now, our core functionality is in tact and is fast.
+
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
+ ______   ______   __   __   __       ______   _______
+/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
+\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__
+ \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\
+  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/
+   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
+    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
+==============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Provided template:
+yyyy-mm-dd
+--------------------------------------------------------------
+<Member> :: <Thing member did.>
+<Member> :: <Thing member did.>
+<Member> :: <Thing member did.>
+==============================================================
+2018-06-07
+--------------------------------------------------------------
+Clara :: Group decided to go forth with Dijkstra's algorithm for finding the shortest path. It turns out that what had been agreed upon earlier was very inefficient when going from a downtown station to an uptown station, which oftentimes resulted in no result. Therefore, implemented a minheap (many thanks to the library) and implemented dijkstra's algorithm. In order to implement Dijkstra's algorithm, also created a 2D array transfers attribute for each station, which represents all of the possible previous and next stations from the current station. 
+Rohan :: Cleaned up code and repo, made all instance variables private, commented on code and worked on UML. Tested implementation of Dijkstra's algorithm vs depth first algorithm
+Soojin :: Worked on possibly using geographic coordinates to possibly evaluate the time it takes between stations rather than just the stops. Worked on flow chart. Worked to work out bugs with algorithm.
+==============================================================
+2018-06-06
+--------------------------------------------------------------
+Clara :: Worked on creating a more approachable user interface, and also worked on SubwayMap.java. Considered a different approach to solving the problem of getting from one station to another using Dijkstra's algorithm, but Soojin fixed the code for the depth-first search so that it worked and then this was agreed upon as the code we would be using.
+Rohan :: Reviewed ReadMe to meet specifications discussed in class. Looked at different ways to fix the run time issues with supposedly simple stations, including adding if statements and things to make sure that the algorithm stays in the subway line.
+Soojin :: Worked on creating a mmore approachable user interface, and fixed the code in SubwayMap.java so that it works with finding the best path considering the minimum number of stops.
+==============================================================
+2018-06-05
+--------------------------------------------------------------
+Clara :: Worked on changes to Driver.java.
+Rohan :: Worked on Readme and fixing CSV file ordering.
+Soojin :: Worked on implementation of algorithm and plan.
+==============================================================
+2018-06-04
+--------------------------------------------------------------
+Clara :: Worked on identifying errors in CSV file ordering of stations, and making improvements to Driver.java.
+Rohan :: Worked on user interface.
+Soojin :: Worked on identifying errors in CSV file ordering of stations.
+==============================================================
+2018-06-03
+--------------------------------------------------------------
+Clara :: Added a transfers instance variable to Station so that it will be easier to check whether transfers can be made at a Station. This instance variable is a string with the lines to which transfers can be made at the Station. This required changes to Station, Station's constructor, and the python code. Stations at which transfers can be made are identified by whether they have the same station complex according to the csv, so the csv had to be processed differently and a column to the csv was added for every row in which there is a list of all the transfers possible.
+Rohan :: Continued to work on driver file and user input. Discussed the purpose of SubwayLine and class designs.
+Soojin :: Updated plan and discussed designs of classes.
+==============================================================
+2018-06-02
+--------------------------------------------------------------
+Clara :: Worked on python code to create an output file of java. Made decisions about how the constructor of Station should be formatted, and started questioning whether SubwayLine was a necessary class
+Rohan :: Worked on driver and figuring out user inputs. Added cs1 dir into repo.
+Soojin :: Worked on updating uml and flowchart diagrams
+==============================================================
+2018-06-01
+--------------------------------------------------------------
+Clara :: All worked together in class on data structures for project. 
+Rohan :: All worked together in class on data structures for project. 
+Soojin :: All worked together in class on data structures for project. 
+==============================================================
+2018-05-31
+--------------------------------------------------------------
+Clara :: Found an appropriate csv that lists stations in the order in which they stop. Relearned some Python, and atarted a .py file that would process the data for the .csv. Was able to extract data for only the 6 line, for example, and removed unnecessary information from the csv. Helped develop algo. 
+Rohan :: Worked on creating a list of steps and Created flowchart based on fleshed out algo.
+Soojin :: Created UML diagram based on existing class files and plan. Helped devlog algo.
+==============================================================
+2018-05-30
+--------------------------------------------------------------
+Clara :: Worked on forming concrete plan. 
+Rohan :: Worked on forming concrete plan. Found a somewhat suitable working csv file of stations.
+Soojin :: Worked on forming concrete plan.
+==============================================================
+2018-05-29
+--------------------------------------------------------------
+Clara :: All worked together to brainstorm structure of classes, and received advice from Mr. Brown to find a .csv file from which data could be received for train stations. A good .csv file has yet to be found.
+Rohan :: Worked together to figure out structure of classes.
+Soojin :: Worked together to figure out structure of classes.
+==============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2018-05-28
+--------------------------------------------------------------
+Clara :: Worked on proposal and came up with project idea
+Rohan :: Worked on proposal
+Soojin :: Worked on proposal
+==============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2018-05-27
+--------------------------------------------------------------
+Clara :: Brainstormed on project idea
+Rohan :: Brainstormed on project idea
+Soojin :: Brainstormed on project idea
+==============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2018-05-25
+--------------------------------------------------------------
+Clara :: Brainstormed on project idea
+Rohan :: Created GitHub repo (and added to Google Form) and brainstormed on project idea
+Soojin :: Brainstormed on project idea
+==============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2018-05-20
+--------------------------------------------------------------
+Clara :: Formed trio
+Rohan :: Formed trio and filled out Google Form
+Soojin :: Formed trio
+==============================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
